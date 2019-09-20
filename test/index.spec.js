@@ -1,17 +1,16 @@
 // importamos la funcion que vamos a testear
 import { convertRelativePathToAbsolutePath, isFile, isDirectory, isMd, walkDirectory, saveLinks } from '../src/main';
 const path = require('path');
-const arrayOfPaths = ['C:\\Users\\sara s\\Documents\\Laboratoria\\Track\\LIM010-fe-md-links\\test\\prueba\\1.md', 'C:\\Users\\sara s\\Documents\\Laboratoria\\Track\\LIM010-fe-md-links\\test\\prueba\\sub carpeta\\2.md']
 
 describe('Absolute path to relative path', () => {
   it('Debería ser una función', () => {
     expect(typeof convertRelativePathToAbsolutePath).toBe('function');
   });
   it('debería convertir una ruta relativa a una ruta absoluta', () => {
-    expect(convertRelativePathToAbsolutePath('./prueba/1.md')).toBe('C:\\Users\\sara s\\Documents\\Laboratoria\\Track\\LIM010-fe-md-links\\prueba\\1.md');
+    expect(convertRelativePathToAbsolutePath('./prueba/1.md')).toBe(path.join(process.cwd(), 'prueba', '1.md'));
   });
   it('debería retornar la misma ruta si es absoluta', () => {
-    expect(convertRelativePathToAbsolutePath('C:\\Users\\sara s\\Documents\\Laboratoria\\Track\\LIM010-fe-md-links\\prueba\\1.md')).toBe('C:\\Users\\sara s\\Documents\\Laboratoria\\Track\\LIM010-fe-md-links\\prueba\\1.md');
+    expect(convertRelativePathToAbsolutePath(path.join(process.cwd(), 'prueba', '1.md'))).toBe(path.join(process.cwd(), 'prueba', '1.md'));
   });
 });
 
@@ -20,10 +19,10 @@ describe('It is a file?', () => {
     expect(typeof isFile).toBe('function');
   });
   it('Debería retornar true si es un archivo', () => {
-    expect(isFile('C:\\Users\\sara s\\Documents\\Laboratoria\\Track\\LIM010-fe-md-links\\src\\main.js')).toBe(true);
+    expect(isFile(path.join(process.cwd(), 'src', 'main.js'))).toBe(true);
   });
   it('Debería retornar false si no es un archivo', () => {
-    expect(isFile('C:\\Users\\sara s\\Documents\\Laboratoria\\Track\\LIM010-fe-md-links\\src')).toBe(false);
+    expect(isFile(path.join(process.cwd(), 'src'))).toBe(false);
   });
 });
 
@@ -32,10 +31,10 @@ describe('It is a directory?', () => {
     expect(typeof isDirectory).toBe('function');
   });
   it('Debería retornar true si es un directorio', () => {
-    expect(isDirectory('C:\\Users\\sara s\\Documents\\Laboratoria\\Track\\LIM010-fe-md-links\\src')).toBe(true);
+    expect(isDirectory(path.join(process.cwd(), 'src'))).toBe(true);
   });
   it('Debería retornar false si no es un directorio', () => {
-    expect(isDirectory('C:\\Users\\sara s\\Documents\\Laboratoria\\Track\\LIM010-fe-md-links\\src\\main.js')).toBe(false);
+    expect(isDirectory(path.join(process.cwd(), 'src', 'main.js'))).toBe(false);
   });
 });
 
@@ -60,19 +59,17 @@ describe('Found md files in all directory', () => {
   });
 });
 
-describe('Save all links in an array of objects', () => {
+describe('Save all links in an array of objects (href,text,file)', () => {
   it('debería ser una función', () => {
     expect(typeof saveLinks).toBe('function');
   });
-  it('Debería ', () => {
-    expect(saveLinks([path.join(process.cwd(), 'test', 'prueba', '1.md')]).toBe('https://nodejs.org/es/');
+  it('Debería mostrar el primer link', () => {
+    expect(saveLinks([path.join(process.cwd(), 'test', 'prueba', '1.md')])[0].href).toBe('https://nodejs.org/es/');
   });
-  // it('Debería', () => {
-  //   expect(saveLinks(arrayOfPaths).text).toBe('Node');
-  // });
-  // it('Debería f', () => {
-  //   expect(saveLinks(arrayOfPaths).thePath).toBe(path.join(process.cwd(), 'test', 'prueba', '1.md'));
-  // });
+  it('Debería mostrar el texto dentro del link', () => {
+    expect(saveLinks([path.join(process.cwd(), 'test', 'prueba', '1.md')])[0].text).toBe('Node.js');
+  });
+  it('Debería mostrar la ruta de donde procede el link', () => {
+    expect(saveLinks([path.join(process.cwd(), 'test', 'prueba', '1.md')])[0].thePath).toBe(path.join(process.cwd(), 'test', 'prueba', '1.md'));
+  });
 });
-
-

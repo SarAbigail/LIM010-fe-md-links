@@ -46,6 +46,7 @@ export const walkDirectory = (thePath) => {
   }
   return arrFileMd;
 };
+const arrRutas = walkDirectory(path.join(process.cwd(), 'test', 'prueba'));
 
 
 export const saveLinks = (arrayOfPaths) => {
@@ -64,7 +65,11 @@ export const saveLinks = (arrayOfPaths) => {
   });
   return allLinks;
 };
+// console.log(arrRutas);
+// saveLinks(arrRutas);
 
+console.log(saveLinks([path.join(process.cwd(), 'test', 'prueba', '1.md')])[0].href);
+// console.log(path.join(process.cwd(), 'test', 'prueba', '1.md'));
 export const statusOfTheLink = (array) => {
   array.forEach((file) => {
     fetch(file.href)
