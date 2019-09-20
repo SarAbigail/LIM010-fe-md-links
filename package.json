@@ -11,6 +11,7 @@
     "test": "test"
   },
   "scripts": {
+    "build": "babel src -d lib",
     "test": "jest --coverage"
   },
   "repository": {
@@ -24,17 +25,20 @@
   },
   "homepage": "https://github.com/SarAbigail/LIM010-fe-md-links#readme",
   "devDependencies": {
+    "@babel/cli": "^7.6.0",
+    "@babel/core": "^7.6.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.2.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^24.8.0",
     "eslint": "^6.3.0",
     "eslint-config-airbnb-base": "^13.2.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jest": "^22.1.2",
-    "@babel/core": "^7.2.2",
-    "@babel/plugin-transform-modules-commonjs": "^7.2.0",
-    "babel-core": "^7.0.0-bridge.0",
-    "babel-jest": "^24.8.0",
     "jest": "^24.9.0"
   },
   "dependencies": {
-    "babel-install": "^2.1.0"
+    "babel-install": "^2.1.0",
+    "marked": "^0.7.0",
+    "node-fetch": "^2.6.0"
   }
 }

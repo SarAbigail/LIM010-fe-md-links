@@ -1,5 +1,7 @@
 // importamos la funcion que vamos a testear
-import { convertRelativePathToAbsolutePath, isMd, isFile, isDirectory } from '../src/main';
+import { convertRelativePathToAbsolutePath, isFile, isDirectory, isMd, walkDirectory, saveLinks } from '../src/main';
+const path = require('path');
+const arrayOfPaths = ['C:\\Users\\sara s\\Documents\\Laboratoria\\Track\\LIM010-fe-md-links\\test\\prueba\\1.md', 'C:\\Users\\sara s\\Documents\\Laboratoria\\Track\\LIM010-fe-md-links\\test\\prueba\\sub carpeta\\2.md']
 
 describe('Absolute path to relative path', () => {
   it('Debería ser una función', () => {
@@ -13,7 +15,31 @@ describe('Absolute path to relative path', () => {
   });
 });
 
-describe('¿Es un archivo markdown?', () => {
+describe('It is a file?', () => {
+  it('Debería ser una función', () => {
+    expect(typeof isFile).toBe('function');
+  });
+  it('Debería retornar true si es un archivo', () => {
+    expect(isFile('C:\\Users\\sara s\\Documents\\Laboratoria\\Track\\LIM010-fe-md-links\\src\\main.js')).toBe(true);
+  });
+  it('Debería retornar false si no es un archivo', () => {
+    expect(isFile('C:\\Users\\sara s\\Documents\\Laboratoria\\Track\\LIM010-fe-md-links\\src')).toBe(false);
+  });
+});
+
+describe('It is a directory?', () => {
+  it('Debería ser una función', () => {
+    expect(typeof isDirectory).toBe('function');
+  });
+  it('Debería retornar true si es un directorio', () => {
+    expect(isDirectory('C:\\Users\\sara s\\Documents\\Laboratoria\\Track\\LIM010-fe-md-links\\src')).toBe(true);
+  });
+  it('Debería retornar false si no es un directorio', () => {
+    expect(isDirectory('C:\\Users\\sara s\\Documents\\Laboratoria\\Track\\LIM010-fe-md-links\\src\\main.js')).toBe(false);
+  });
+});
+
+describe('It is a markdown file?', () => {
   it('debería retornar true si la extensión del archivo es .md', () => {
     expect(isMd('1.md')).toBe(true);
   });
@@ -22,32 +48,31 @@ describe('¿Es un archivo markdown?', () => {
   });
 });
 
-describe('It is a file?', () => {
-  it('Debería ser una función', (done) => {
-    expect(typeof isFile).toBe('function');
-    done();
+describe('Found md files in all directory', () => {
+  it('debería ser una función', () => {
+    expect(typeof walkDirectory).toBe('function');
   });
-  it('Debería retornar true si es un archivo', (done) => {
-    expect(isFile('C:\\Users\\sara s\\Documents\\Laboratoria\\Track\\LIM010-fe-md-links\\src\\main.js')).toBe(true);
-    done();
+  it('Debería retornar el file con extensión Md', () => {
+    expect(walkDirectory(path.join(process.cwd(), 'test'))[0]).toBe(path.join(process.cwd(), 'test', 'prueba', '1.md'));
   });
-  it('Debería retornar false si no es un archivo', (done) => {
-    expect(isFile('C:\\Users\\sara s\\Documents\\Laboratoria\\Track\\LIM010-fe-md-links\\src')).toBe(false);
-    done();
+  it('Debería retornar el file con extensión Md de un directorio', () => {
+    expect(walkDirectory(path.join(process.cwd(), 'test'))[1]).toBe(path.join(process.cwd(), 'test', 'prueba', 'sub carpeta', '2.md'));
   });
 });
 
-describe('It is a directory?', () => {
-  it('Debería ser una función', (done) => {
-    expect(typeof isDirectory).toBe('function');
-    done();
+describe('Save all links in an array of objects', () => {
+  it('debería ser una función', () => {
+    expect(typeof saveLinks).toBe('function');
   });
-  it('Debería retornar true si es un directorio', (done) => {
-    expect(isDirectory('C:\\Users\\sara s\\Documents\\Laboratoria\\Track\\LIM010-fe-md-links\\src')).toBe(true);
-    done();
+  it('Debería ', () => {
+    expect(saveLinks([path.join(process.cwd(), 'test', 'prueba', '1.md')]).toBe('https://nodejs.org/es/');
   });
-  it('Debería retornar false si no es un directorio', (done) => {
-    expect(isDirectory('C:\\Users\\sara s\\Documents\\Laboratoria\\Track\\LIM010-fe-md-links\\src\\main.js')).toBe(false);
-    done();
-  });
+  // it('Debería', () => {
+  //   expect(saveLinks(arrayOfPaths).text).toBe('Node');
+  // });
+  // it('Debería f', () => {
+  //   expect(saveLinks(arrayOfPaths).thePath).toBe(path.join(process.cwd(), 'test', 'prueba', '1.md'));
+  // });
 });
+
+
