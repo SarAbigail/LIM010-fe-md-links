@@ -1,5 +1,6 @@
 // importamos la funcion que vamos a testear
 import { convertRelativePathToAbsolutePath, isFile, isDirectory, isMd, walkDirectory, saveLinks } from '../src/main';
+
 const path = require('path');
 
 describe('Absolute path to relative path', () => {

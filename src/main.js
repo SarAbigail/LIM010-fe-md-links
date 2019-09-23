@@ -65,20 +65,64 @@ export const saveLinks = (arrayOfPaths) => {
   });
   return allLinks;
 };
-// console.log(arrRutas);
-// saveLinks(arrRutas);
 
-console.log(saveLinks([path.join(process.cwd(), 'test', 'prueba', '1.md')])[0].href);
-// console.log(path.join(process.cwd(), 'test', 'prueba', '1.md'));
-export const statusOfTheLink = (array) => {
-  array.forEach((file) => {
-    fetch(file.href)
-      .then((res) => {
-        console.log(res.status);
-      })
-      .catch((err) => {
-        // handle error for example
-        console.error(err);
-      });
-  });
+const a = saveLinks(arrRutas);
+
+// export const statusOfTheLink = (array) => {
+//   array.forEach((file) => {
+//     fetch(file.href)
+//       .then((res) => {
+//         console.log(res.status);
+//       })
+//       .catch((err) => {
+//         // handle error for example
+//         console.error(err);
+//       });
+//   });
+// };
+
+// export const statusOfTheLink = (array) => {
+//   array.forEach((file) => {
+//     fetch(file.href)
+//       .then((res) => {
+//         if (res.status >= 200 && res.status <= 208) {
+//           file.status = res.status;
+//           file.tstatus = res.statusText;
+//         } else {
+//           file.status = res.status;
+//           file.tstatus = 'FAIL';
+//         }
+//         return file;
+//       })
+//       .catch((err) => {
+//         // handle error for example
+//       });
+//   });
+// };
+
+export const statusOfTheLink = (arrObj) => {
+  const b = arrObj.map(file => fetch(file.href)
+    .then((res) => {
+      if (res.status >= 200 && res.status <= 208) {
+        return {
+          ...file,
+          status: res.status,
+          statusText: res.statusText,
+        };
+      } return {
+        ...file,
+        status: res.status,
+        statusText: 'FAIL',
+      };
+    })
+    .catch(() => ({
+      // handle error for example
+      ...file,
+      status: 'ERROR',
+      statusText: 'FAIL',
+    })));
+
+  return Promise.all(b);
 };
+
+statusOfTheLink(a);
