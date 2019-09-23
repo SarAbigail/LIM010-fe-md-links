@@ -46,8 +46,6 @@ export const walkDirectory = (thePath) => {
   }
   return arrFileMd;
 };
-const arrRutas = walkDirectory(path.join(process.cwd(), 'test', 'prueba'));
-
 
 export const saveLinks = (arrayOfPaths) => {
   const allLinks = [];
@@ -66,41 +64,7 @@ export const saveLinks = (arrayOfPaths) => {
   return allLinks;
 };
 
-const a = saveLinks(arrRutas);
-
-// export const statusOfTheLink = (array) => {
-//   array.forEach((file) => {
-//     fetch(file.href)
-//       .then((res) => {
-//         console.log(res.status);
-//       })
-//       .catch((err) => {
-//         // handle error for example
-//         console.error(err);
-//       });
-//   });
-// };
-
-// export const statusOfTheLink = (array) => {
-//   array.forEach((file) => {
-//     fetch(file.href)
-//       .then((res) => {
-//         if (res.status >= 200 && res.status <= 208) {
-//           file.status = res.status;
-//           file.tstatus = res.statusText;
-//         } else {
-//           file.status = res.status;
-//           file.tstatus = 'FAIL';
-//         }
-//         return file;
-//       })
-//       .catch((err) => {
-//         // handle error for example
-//       });
-//   });
-// };
-
-export const statusOfTheLink = (arrObj) => {
+export const validate = (arrObj) => {
   const b = arrObj.map(file => fetch(file.href)
     .then((res) => {
       if (res.status >= 200 && res.status <= 208) {
@@ -121,8 +85,19 @@ export const statusOfTheLink = (arrObj) => {
       status: 'ERROR',
       statusText: 'FAIL',
     })));
-
   return Promise.all(b);
 };
 
-statusOfTheLink(a);
+export const stats = arrObj => ({
+  Total: arrObj.length,
+  Unique: arrObj.map(item => item.href)
+    .filter((value, index, self) => self.indexOf(value) === index).length,
+});
+
+export const statsValidate = (arrObj) => {
+  const objStats = stats(arrObj);
+  return {
+    ...objStats,
+    Broken: arrObj.map(item => item.statusText).filter(word => word === 'FAIL').length,
+  };
+};

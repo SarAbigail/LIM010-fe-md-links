@@ -1,5 +1,6 @@
 // importamos la funcion que vamos a testear
-import { convertRelativePathToAbsolutePath, isFile, isDirectory, isMd, walkDirectory, saveLinks } from '../src/main';
+import { io } from './input-output.js';
+import { convertRelativePathToAbsolutePath, isFile, isDirectory, isMd, walkDirectory, saveLinks, stats, statsValidate } from '../src/main';
 
 const path = require('path');
 
@@ -7,10 +8,10 @@ describe('Absolute path to relative path', () => {
   it('Debería ser una función', () => {
     expect(typeof convertRelativePathToAbsolutePath).toBe('function');
   });
-  it('debería convertir una ruta relativa a una ruta absoluta', () => {
+  it('Debería convertir una ruta relativa a una ruta absoluta', () => {
     expect(convertRelativePathToAbsolutePath('./prueba/1.md')).toBe(path.join(process.cwd(), 'prueba', '1.md'));
   });
-  it('debería retornar la misma ruta si es absoluta', () => {
+  it('Debería retornar la misma ruta si es absoluta', () => {
     expect(convertRelativePathToAbsolutePath(path.join(process.cwd(), 'prueba', '1.md'))).toBe(path.join(process.cwd(), 'prueba', '1.md'));
   });
 });
@@ -40,16 +41,16 @@ describe('It is a directory?', () => {
 });
 
 describe('It is a markdown file?', () => {
-  it('debería retornar true si la extensión del archivo es .md', () => {
+  it('Debería retornar true si la extensión del archivo es .md', () => {
     expect(isMd('1.md')).toBe(true);
   });
-  it('debería retornar false si la extensión del archivo es .md', () => {
+  it('Debería retornar false si la extensión del archivo es .md', () => {
     expect(isMd('1.txt')).toBe(false);
   });
 });
 
 describe('Found md files in all directory', () => {
-  it('debería ser una función', () => {
+  it('Debería ser una función', () => {
     expect(typeof walkDirectory).toBe('function');
   });
   it('Debería retornar el file con extensión Md', () => {
@@ -61,7 +62,7 @@ describe('Found md files in all directory', () => {
 });
 
 describe('Save all links in an array of objects (href,text,file)', () => {
-  it('debería ser una función', () => {
+  it('Debería ser una función', () => {
     expect(typeof saveLinks).toBe('function');
   });
   it('Debería mostrar el primer link', () => {
@@ -72,5 +73,23 @@ describe('Save all links in an array of objects (href,text,file)', () => {
   });
   it('Debería mostrar la ruta de donde procede el link', () => {
     expect(saveLinks([path.join(process.cwd(), 'test', 'prueba', '1.md')])[0].thePath).toBe(path.join(process.cwd(), 'test', 'prueba', '1.md'));
+  });
+});
+
+describe('Show stadistics about md-links', () => {
+  it('Debería ser una función', () => {
+    expect(typeof stats).toBe('function');
+  });
+  it('Debería retornar el número total y unique de links', () => {
+    expect(stats(io.arrObj)).toMatchObject(io.outputStats);
+  });
+});
+
+describe('Show stadistics about md-links and validate', () => {
+  it('Debería ser una función', () => {
+    expect(typeof statsValidate).toBe('function');
+  });
+  it('Debería retornar el número total,unique y broken de links ', () => {
+    expect(statsValidate(io.inputStatsValidate)).toMatchObject(io.outputStatsValidate);
   });
 });
