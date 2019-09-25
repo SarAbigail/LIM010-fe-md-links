@@ -33,7 +33,7 @@ const inputStatsValidate = [{
   text: 'Repositorio',
 },
 {
-  thePath: '/home/laboratoria/LIM010-fe-md-links/test/prueba/1.md',
+  thePath: path.join(process.cwd(), 'test', 'prueba', '1.md'),
   status: 'ERROR',
   statusText: 'FAIL',
   href: 'https://www.facebooks.com/',

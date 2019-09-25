@@ -5,17 +5,15 @@ import {
   convertRelativePathToAbsolutePath, isFile, isDirectory, isMd, walkDirectory, saveLinks, validate, stats, statsValidate,
 } from '../src/main';
 
-const path = require('path');
-
 describe('Absolute path to relative path', () => {
   it('Debería ser una función', () => {
     expect(typeof convertRelativePathToAbsolutePath).toBe('function');
   });
   it('Debería convertir una ruta relativa a una ruta absoluta', () => {
-    expect(convertRelativePathToAbsolutePath('./prueba/1.md')).toBe(path.join(process.cwd(), 'prueba', '1.md'));
+    expect(convertRelativePathToAbsolutePath('./prueba/1.md')).toBe(io.path.join(process.cwd(), 'prueba', '1.md'));
   });
   it('Debería retornar la misma ruta si es absoluta', () => {
-    expect(convertRelativePathToAbsolutePath(path.join(process.cwd(), 'prueba', '1.md'))).toBe(path.join(process.cwd(), 'prueba', '1.md'));
+    expect(convertRelativePathToAbsolutePath(io.path.join(process.cwd(), 'prueba', '1.md'))).toBe(io.path.join(process.cwd(), 'prueba', '1.md'));
   });
 });
 
@@ -24,10 +22,10 @@ describe('It is a file?', () => {
     expect(typeof isFile).toBe('function');
   });
   it('Debería retornar true si es un archivo', () => {
-    expect(isFile(path.join(process.cwd(), 'src', 'main.js'))).toBe(true);
+    expect(isFile(io.path.join(process.cwd(), 'src', 'main.js'))).toBe(true);
   });
   it('Debería retornar false si no es un archivo', () => {
-    expect(isFile(path.join(process.cwd(), 'src'))).toBe(false);
+    expect(isFile(io.path.join(process.cwd(), 'src'))).toBe(false);
   });
 });
 
@@ -36,10 +34,10 @@ describe('It is a directory?', () => {
     expect(typeof isDirectory).toBe('function');
   });
   it('Debería retornar true si es un directorio', () => {
-    expect(isDirectory(path.join(process.cwd(), 'src'))).toBe(true);
+    expect(isDirectory(io.path.join(process.cwd(), 'src'))).toBe(true);
   });
   it('Debería retornar false si no es un directorio', () => {
-    expect(isDirectory(path.join(process.cwd(), 'src', 'main.js'))).toBe(false);
+    expect(isDirectory(io.path.join(process.cwd(), 'src', 'main.js'))).toBe(false);
   });
 });
 
@@ -57,10 +55,10 @@ describe('Found md files in all directory', () => {
     expect(typeof walkDirectory).toBe('function');
   });
   it('Debería retornar el file con extensión Md', () => {
-    expect(walkDirectory(path.join(process.cwd(), 'test'))[0]).toBe(path.join(process.cwd(), 'test', 'prueba', '1.md'));
+    expect(walkDirectory(io.path.join(process.cwd(), 'test'))[0]).toBe(io.path.join(process.cwd(), 'test', 'prueba', '1.md'));
   });
   it('Debería retornar el file con extensión Md de un directorio', () => {
-    expect(walkDirectory(path.join(process.cwd(), 'test'))[1]).toBe(path.join(process.cwd(), 'test', 'prueba', 'sub carpeta', '2.md'));
+    expect(walkDirectory(io.path.join(process.cwd(), 'test'))[1]).toBe(io.path.join(process.cwd(), 'test', 'prueba', 'sub carpeta', '2.md'));
   });
 });
 
@@ -69,13 +67,13 @@ describe('Save all links in an array of objects (href,text,file)', () => {
     expect(typeof saveLinks).toBe('function');
   });
   it('Debería mostrar el primer link', () => {
-    expect(saveLinks([path.join(process.cwd(), 'test', 'prueba', '1.md')])[0].href).toBe('https://nodejs.org/es/');
+    expect(saveLinks([io.path.join(process.cwd(), 'test', 'prueba', '1.md')])[0].href).toBe('https://nodejs.org/es/');
   });
   it('Debería mostrar el texto dentro del link', () => {
-    expect(saveLinks([path.join(process.cwd(), 'test', 'prueba', '1.md')])[0].text).toBe('Node.js');
+    expect(saveLinks([io.path.join(process.cwd(), 'test', 'prueba', '1.md')])[0].text).toBe('Node.js');
   });
   it('Debería mostrar la ruta de donde procede el link', () => {
-    expect(saveLinks([path.join(process.cwd(), 'test', 'prueba', '1.md')])[0].thePath).toBe(path.join(process.cwd(), 'test', 'prueba', '1.md'));
+    expect(saveLinks([io.path.join(process.cwd(), 'test', 'prueba', '1.md')])[0].thePath).toBe(io.path.join(process.cwd(), 'test', 'prueba', '1.md'));
   });
 });
 
@@ -88,14 +86,14 @@ describe('Validate link', () => {
   it('Debería devolver un array de objetos con la ruta, url, status, status text y text', done => validate(io.arrObj)
     .then((data) => {
       expect(data).toStrictEqual([{
-        thePath: path.join(process.cwd(), 'test', 'prueba', '1.md'),
+        thePath: io.path.join(process.cwd(), 'test', 'prueba', '1.md'),
         href: 'https://nodejs.org/es/',
         status: 200,
         statusText: 'OK',
         text: 'Node.js',
       },
       {
-        thePath: path.join(process.cwd(), 'test', 'prueba', '1.md'),
+        thePath: io.path.join(process.cwd(), 'test', 'prueba', '1.md'),
         href: 'https://github.com/karenLee57/karenLee57.github.io-hangman',
         status: 404,
         statusText: 'FAIL',

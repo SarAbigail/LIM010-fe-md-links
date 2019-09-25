@@ -9,27 +9,11 @@ export const convertRelativePathToAbsolutePath = (thePath) => {
   }
   return thePath;
 };
+export const isFile = thePath => fs.statSync(thePath).isFile();
 
-export const isFile = (thePath) => {
-  if (fs.statSync(thePath).isFile()) {
-    return true;
-  }
-  return false;
-};
+export const isDirectory = thePath => fs.statSync(thePath).isDirectory();
 
-export const isDirectory = (thePath) => {
-  if (fs.statSync(thePath).isDirectory()) {
-    return true;
-  }
-  return false;
-};
-
-export const isMd = (file) => {
-  if (path.extname(file) === '.md') {
-    return true;
-  }
-  return false;
-};
+export const isMd = file => (path.extname(file) === '.md');
 
 export const walkDirectory = (thePath) => {
   const absolutePath = convertRelativePathToAbsolutePath(thePath);
@@ -48,8 +32,9 @@ export const walkDirectory = (thePath) => {
 };
 
 export const saveLinks = (arrayOfPaths) => {
+  const arrayOfRoutes = walkDirectory(arrayOfPaths);
   const allLinks = [];
-  arrayOfPaths.forEach((thePath) => {
+  arrayOfRoutes.forEach((thePath) => {
     const readFiles = fs.readFileSync(thePath, 'utf8');
     const renderer = new marked.Renderer();
     renderer.link = (href, title, text) => {
@@ -89,8 +74,8 @@ export const validate = (arrObj) => {
 };
 
 export const stats = arrObj => ({
-  Total: arrObj.length,
-  Unique: arrObj.map(item => item.href)
+  total: arrObj.length,
+  unique: arrObj.map(item => item.href)
     .filter((value, index, self) => self.indexOf(value) === index).length,
 });
 
@@ -98,6 +83,20 @@ export const statsValidate = (arrObj) => {
   const objStats = stats(arrObj);
   return {
     ...objStats,
-    Broken: arrObj.map(item => item.statusText).filter(word => word === 'FAIL').length,
+    broken: arrObj.map(item => item.statusText).filter(word => word === 'FAIL').length,
   };
 };
+
+export const mdLinks = (thePath, options) => new Promise((resolve) => {
+  const absolutePath = convertRelativePathToAbsolutePath(thePath);
+  if (options === undefined || options.validate === false) {
+    resolve(saveLinks(absolutePath));
+  } else {
+    const arrayOfLinks = saveLinks(absolutePath);
+    resolve(validate(arrayOfLinks));
+  }
+});
+
+// mdLinks(path.join(process.cwd(), 'test/prueba'), { validate: true }).then(res => console.log(res));
+
+// mdLinks(path.join(process.cwd(), 'test/prueba'), undefined).then(res => console.log(res));
