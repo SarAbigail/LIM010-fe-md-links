@@ -65,7 +65,6 @@ export const validate = (arrObj) => {
       };
     })
     .catch(() => ({
-      // handle error for example
       ...file,
       status: 'ERROR',
       statusText: 'FAIL',
@@ -73,18 +72,12 @@ export const validate = (arrObj) => {
   return Promise.all(b);
 };
 
-export const stats = arrObj => ({
-  total: arrObj.length,
-  unique: arrObj.map(item => item.href)
-    .filter((value, index, self) => self.indexOf(value) === index).length,
-});
+export const stats = arrObj => `Total: ${arrObj.length} \nUnique: ${arrObj.map(item => item.href)
+  .filter((value, index, self) => self.indexOf(value) === index).length}`;
 
 export const statsValidate = (arrObj) => {
   const objStats = stats(arrObj);
-  return {
-    ...objStats,
-    broken: arrObj.map(item => item.statusText).filter(word => word === 'FAIL').length,
-  };
+  return `${objStats} \nBroken: ${arrObj.map(item => item.statusText).filter(word => word === 'FAIL').length}`;
 };
 
 export const mdLinks = (thePath, options) => new Promise((resolve) => {
@@ -97,6 +90,38 @@ export const mdLinks = (thePath, options) => new Promise((resolve) => {
   }
 });
 
-// mdLinks(path.join(process.cwd(), 'test/prueba'), { validate: true }).then(res => console.log(res));
+export const bool = (opt1, opt2) => {
+  if ((opt1 === '--validate' && opt2 === undefined) || (opt1 === '--stats' && opt2 === '--validate')) return { validate: true };
+  return { validate: false };
+};
 
-// mdLinks(path.join(process.cwd(), 'test/prueba'), undefined).then(res => console.log(res));
+export const mdLinksCli = (thePath, opt1, opt2) => {
+  const options = bool;
+  return mdLinks(thePath, options)
+    .then((res) => {
+      let response = '';
+      if (res.length === 0) {
+        response += 'No se encontraron links o archivos md en la ruta dada.';
+      }
+      if (opt1 === undefined) {
+        res.forEach((file) => {
+          response += `${file.thePath} ${file.href} ${file.text.substr(0, 50)}`;
+        });
+      }
+      if (opt1 === '--stats' && opt2 === undefined) {
+        response += stats(res);
+      }
+      if (opt1 === '--validate' && opt2 === undefined) {
+        res.forEach((file) => {
+          response += `${file.thePath} ${file.href} ${file.statusText} ${file.status} ${file.text.substr(0, 50)}`;
+        });
+      }
+      if (opt1 === '--stats' && opt2 === '--validate') {
+        response += statsValidate(res);
+      }
+      if ((opt1 !== '--stats' && opt1 !== '--validate' && opt1 !== undefined) || (opt2 !== '--validate' && opt2 !== undefined)) {
+        response += '> No es un comando válido!!!';
+      }
+      return response;
+    });
+};
