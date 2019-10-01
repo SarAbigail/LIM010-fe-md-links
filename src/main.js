@@ -101,7 +101,7 @@ export const mdLinksCli = (thePath, opt1, opt2) => {
     .then((res) => {
       let response = '';
       if (res.length === 0) {
-        response += 'No se encontraron links o archivos md en la ruta dada.';
+        response += '-- No se encontraron links o archivos md en la ruta dada.';
       }
       if (opt1 === undefined) {
         res.forEach((file) => {

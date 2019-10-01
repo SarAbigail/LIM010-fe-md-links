@@ -24,7 +24,7 @@
     "url": "https://github.com/SarAbigail/LIM010-fe-md-links/issues"
   },
   "bin": {
-    "mdLinks": "lib/cli.js"
+    "md-links": "lib/cli.js"
   },
   "homepage": "https://github.com/SarAbigail/LIM010-fe-md-links#readme",
   "devDependencies": {
@@ -41,6 +41,7 @@
   },
   "dependencies": {
     "babel-install": "^2.1.0",
+    "graceful-fs": "^4.2.2",
     "marked": "^0.7.0",
     "node-fetch": "^2.6.0"
   }

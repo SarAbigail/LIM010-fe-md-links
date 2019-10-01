@@ -109,7 +109,7 @@ describe('mdLinksCli', () => {
   });
   it('Debería retornar no se encontraron links en los archivos md', (done) => {
     mdLinksCli('test/prueba/sub carpeta/sub', undefined, undefined).then((response) => {
-      expect(response).toBe('No se encontraron links o archivos md en la ruta dada.');
+      expect(response).toBe('-- No se encontraron links o archivos md en la ruta dada.');
       done();
     });
   });
