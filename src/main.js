@@ -101,11 +101,11 @@ export const mdLinksCli = (thePath, opt1, opt2) => {
     .then((res) => {
       let response = '';
       if (res.length === 0) {
-        response += '-- No se encontraron links o archivos md en la ruta dada.';
+        response += '> No se encontraron links o archivos md en la ruta dada.';
       }
       if (opt1 === undefined) {
         res.forEach((file) => {
-          response += `${file.thePath} ${file.href} ${file.text.substr(0, 50)}`;
+          response += `\n${file.thePath} ${file.href} ${file.text.substr(0, 50)}`;
         });
       }
       if (opt1 === '--stats' && opt2 === undefined) {
@@ -113,7 +113,7 @@ export const mdLinksCli = (thePath, opt1, opt2) => {
       }
       if (opt1 === '--validate' && opt2 === undefined) {
         res.forEach((file) => {
-          response += `${file.thePath} ${file.href} ${file.statusText} ${file.status} ${file.text.substr(0, 50)}`;
+          response += `\n${file.thePath} ${file.href} ${file.statusText} ${file.status} ${file.text.substr(0, 50)}`;
         });
       }
       if (opt1 === '--stats' && opt2 === '--validate') {
