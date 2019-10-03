@@ -116,7 +116,6 @@ Unique: 3
 Broken: 1
 ```
 
-
 ## Diagrama de flujo que soluciona el problema
 [Diagrama de flujo](https://github.com/SarAbigail/LIM010-fe-md-links/blob/master/img/Diagrama%20de%20flujo.png?raw=true)
 

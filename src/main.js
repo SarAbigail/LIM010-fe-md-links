@@ -11,8 +11,6 @@ export const convertRelativePathToAbsolutePath = (thePath) => {
 };
 export const isFile = thePath => fs.statSync(thePath).isFile();
 
-export const isDirectory = thePath => fs.statSync(thePath).isDirectory();
-
 export const isMd = file => (path.extname(file) === '.md');
 
 export const walkDirectory = (thePath) => {
@@ -22,7 +20,7 @@ export const walkDirectory = (thePath) => {
     if (isMd(absolutePath)) {
       arrFileMd.push(absolutePath);
     }
-  } else if (isDirectory(absolutePath)) {
+  } else {
     const pathOfFiles = fs.readdirSync(absolutePath);
     pathOfFiles.forEach((file) => {
       arrFileMd = arrFileMd.concat(walkDirectory(path.join(absolutePath, file)));

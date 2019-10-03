@@ -1,5 +1,5 @@
 {
-  "name": "lim010-fe-md-links",
+  "name": "md-links",
   "version": "1.0.0",
   "description": "npm install --global SarAbigail/md-links",
   "main": "lib/main.js",

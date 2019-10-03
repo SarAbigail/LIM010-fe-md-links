@@ -2,7 +2,7 @@
 
 import { io } from './input-output.js';
 import {
-  convertRelativePathToAbsolutePath, isFile, isDirectory, isMd, walkDirectory, saveLinks, validate, stats, statsValidate, mdLinks, mdLinksCli, bool,
+  convertRelativePathToAbsolutePath, isFile, isMd, walkDirectory, saveLinks, validate, stats, statsValidate, mdLinks, mdLinksCli, bool,
 } from '../src/main';
 
 describe('Absolute path to relative path', () => {
@@ -23,14 +23,6 @@ describe('It is a file?', () => {
   });
 });
 
-describe('It is a directory?', () => {
-  it('Debería retornar true si es un directorio', () => {
-    expect(isDirectory(io.path.join(process.cwd(), 'src'))).toBe(true);
-  });
-  it('Debería retornar false si no es un directorio', () => {
-    expect(isDirectory(io.path.join(process.cwd(), 'src', 'main.js'))).toBe(false);
-  });
-});
 
 describe('It is a markdown file?', () => {
   it('Debería retornar true si la extensión del archivo es .md', () => {
@@ -42,10 +34,10 @@ describe('It is a markdown file?', () => {
 });
 
 describe('Found md files in all directory', () => {
-  it('Debería retornar el file con extensión Md', () => {
+  it('Debería retornar el file con extensión md', () => {
     expect(walkDirectory(io.path.join(process.cwd(), 'test'))[0]).toBe(io.path.join(process.cwd(), 'test', 'prueba', '1.md'));
   });
-  it('Debería retornar el file con extensión Md de un directorio', () => {
+  it('Debería retornar el file con extensión md de un directorio', () => {
     expect(walkDirectory(io.path.join(process.cwd(), 'test'))[1]).toBe(io.path.join(process.cwd(), 'test', 'prueba', 'sub carpeta', '2.md'));
   });
 });
