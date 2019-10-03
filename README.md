@@ -8,6 +8,7 @@ También puedes importarlo con `require` para usarlo programáticamente : `const
 ## Documentación técnica de la librería
 
 ### API
+
 #### `mdLinks(path, options)`
 
 ##### Argumentos
@@ -33,19 +34,19 @@ las siguientes propiedades:
 ```js
 const mdLinks = require("md-links");
 
-mdLinks("./some/example.md")
+mdLinks.mdLinks("./some/example.md")
   .then(links => {
     // => [{ href, text, file }]
   })
   .catch(console.error);
 
-mdLinks("./some/example.md", { validate: true })
+mdLinks.mdLinks("./some/example.md", { validate: true })
   .then(links => {
     // => [{ href, text, file, status, ok }]
   })
   .catch(console.error);
 
-mdLinks("./some/dir")
+mdLinks.mdLinks("./some/dir")
   .then(links => {
     // => [{ href, text, file }]
   })
@@ -72,7 +73,6 @@ El comportamiento por defecto solo identifica el archivo markdown (a partir de l
 argumento), analiza el archivo Markdown e imprime los links que vaya
 encontrando, junto con la ruta del archivo donde aparece y el texto
 que hay dentro del link (truncado a 50 caracteres).
-
 
 #### Options
 
@@ -117,19 +117,22 @@ Broken: 1
 ```
 
 ## Diagrama de flujo que soluciona el problema
+
 [Diagrama de flujo](https://github.com/SarAbigail/LIM010-fe-md-links/blob/master/img/Diagrama%20de%20flujo.png?raw=true)
 
-## Board con el backlog para la implementación de la librería.
+## Board con el backlog para la implementación de la librería
+
 ![Project](https://github.com/SarAbigail/md-links/blob/master/img/1.png)
 ![Backlog](https://github.com/SarAbigail/md-links/blob/master/img/2.png)
-
 
 ## Objetivos de aprendizaje
 
 ### Anteriores
+
 - [x] Testeo asíncrono
 
 ### Javascript
+
 - [ ] Uso de callbacks
 - [x] Consumo de Promesas
 - [x] Creacion de Promesas
@@ -137,6 +140,7 @@ Broken: 1
 - [x] Recursión
 
 ### Node
+
 - [x] Sistema de archivos
 - [x] package.json
 - [x] crear modules
@@ -145,6 +149,7 @@ Broken: 1
 - [x] CLI (Command Line Interface - Interfaz de Línea de Comando)
 
 ### Testing
+
 - [x] Testeo de tus funciones
 - [x] Testeo asíncrono
 - [ ] Uso de librerias de Mock
@@ -152,9 +157,11 @@ Broken: 1
 - [x] Testeo para multiples Sistemas Operativos
 
 ### Git y Github
+
 - [x] Organización en Github
 
 ### Buenas prácticas de desarrollo
+
 - [x] Modularización
 - [X] Nomenclatura / Semántica
 - [x] Linting
