@@ -1,8 +1,8 @@
 {
   "name": "lim010-fe-md-links",
   "version": "1.0.0",
-  "description": "npm install lim010-fe-md-links",
-  "main": "src/main.js",
+  "description": "npm install --global SarAbigail/md-links",
+  "main": "lib/main.js",
   "keywords": [
     "javascript",
     "jest"

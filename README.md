@@ -3,7 +3,7 @@
 ## Guía de uso e instalación de la librería
 
 Para instalar esta librería debes ejecutar la siguiente linea de comando: `npm install --global SarAbigail/md-links`.
-También puedes importarlo con `require` para usarlo programáticamente : `const mdLinks = require('md-links')`
+También puedes importarlo con `require` para usarlo programáticamente : `const mdLinks = require('md-links');`
 
 ## Documentación técnica de la librería
 
@@ -118,11 +118,11 @@ Broken: 1
 
 
 ## Diagrama de flujo que soluciona el problema
-- [Diagrama de flujo](https://github.com/SarAbigail/LIM010-fe-md-links/blob/master/img/Diagrama%20de%20flujo.png?raw=true)
+[Diagrama de flujo](https://github.com/SarAbigail/LIM010-fe-md-links/blob/master/img/Diagrama%20de%20flujo.png?raw=true)
 
 ## Board con el backlog para la implementación de la librería.
-- ![Project](https://github.com/SarAbigail/md-links/blob/master/img/1.png)
-- ![Backlog](https://github.com/SarAbigail/md-links/blob/master/img/2.png)
+![Project](https://github.com/SarAbigail/md-links/blob/master/img/1.png)
+![Backlog](https://github.com/SarAbigail/md-links/blob/master/img/2.png)
 
 
 ## Objetivos de aprendizaje
