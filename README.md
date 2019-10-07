@@ -133,7 +133,7 @@ Broken: 1
 
 ### Javascript
 
-- [ ] Uso de callbacks
+- [x] Uso de callbacks
 - [x] Consumo de Promesas
 - [x] Creacion de Promesas
 - [x] Modulos de Js
@@ -162,6 +162,6 @@ Broken: 1
 
 ### Buenas prácticas de desarrollo
 
-- [x] Modularización
-- [X] Nomenclatura / Semántica
+- [] Modularización
+- [x] Nomenclatura / Semántica
 - [x] Linting

@@ -22,7 +22,7 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>79/79</span>
+        <span class='fraction'>78/78</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -32,12 +32,12 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>25/25</span>
+        <span class='fraction'>24/24</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>70/70</span>
+        <span class='fraction'>69/69</span>
       </div>
     </div>
     <p class="quiet">
@@ -170,8 +170,7 @@
 <a name='L122'></a><a href='#L122'>122</a>
 <a name='L123'></a><a href='#L123'>123</a>
 <a name='L124'></a><a href='#L124'>124</a>
-<a name='L125'></a><a href='#L125'>125</a>
-<a name='L126'></a><a href='#L126'>126</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L125'></a><a href='#L125'>125</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -221,29 +220,28 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">51x</span>
+<span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">44x</span>
-<span class="cline-any cline-yes">37x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">22x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -254,16 +252,16 @@
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -327,8 +325,8 @@ export const walkDirectory = (thePath) =&gt; {
   return arrFileMd;
 };
 &nbsp;
-export const saveLinks = (arrayOfPaths) =&gt; {
-  const arrayOfRoutes = walkDirectory(arrayOfPaths);
+export const saveLinks = (filePath) =&gt; {
+  const arrayOfRoutes = walkDirectory(filePath);
   const allLinks = [];
   arrayOfRoutes.forEach((thePath) =&gt; {
     const readFiles = fs.readFileSync(thePath, 'utf8');
@@ -346,7 +344,7 @@ export const saveLinks = (arrayOfPaths) =&gt; {
 };
 &nbsp;
 export const validate = (arrObj) =&gt; {
-  const b = arrObj.map(file =&gt; fetch(file.href)
+  const fetchLink = arrObj.map(file =&gt; fetch(file.href)
     .then((res) =&gt; {
       if (res.status &gt;= 200 &amp;&amp; res.status &lt;= 208) {
         return {
@@ -365,11 +363,10 @@ export const validate = (arrObj) =&gt; {
       status: 'ERROR',
       statusText: 'FAIL',
     })));
-  return Promise.all(b);
+  return Promise.all(fetchLink);
 };
 &nbsp;
-export const stats = arrObj =&gt; `Total: ${arrObj.length} \nUnique: ${arrObj.map(item =&gt; item.href)
-  .filter((value, index, self) =&gt; self.indexOf(value) === index).length}`;
+export const stats = arrObj =&gt; `Total: ${arrObj.length} \nUnique: ${new Set(arrObj.map(item =&gt; item.href)).size}`;
 &nbsp;
 export const statsValidate = (arrObj) =&gt; {
   const objStats = stats(arrObj);
@@ -392,7 +389,7 @@ export const bool = (opt1, opt2) =&gt; {
 };
 &nbsp;
 export const mdLinksCli = (thePath, opt1, opt2) =&gt; {
-  const options = bool;
+  const options = bool(opt1, opt2);
   return mdLinks(thePath, options)
     .then((res) =&gt; {
       let response = '';
@@ -427,7 +424,7 @@ export const mdLinksCli = (thePath, opt1, opt2) =&gt; {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Oct 03 2019 16:33:21 GMT-0500 (GMT-05:00)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Oct 06 2019 21:48:12 GMT-0500 (GMT-05:00)
 </div>
 </div>
 <script src="../prettify.js"></script>

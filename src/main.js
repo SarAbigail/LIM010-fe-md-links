@@ -29,8 +29,8 @@ export const walkDirectory = (thePath) => {
   return arrFileMd;
 };
 
-export const saveLinks = (arrayOfPaths) => {
-  const arrayOfRoutes = walkDirectory(arrayOfPaths);
+export const saveLinks = (filePath) => {
+  const arrayOfRoutes = walkDirectory(filePath);
   const allLinks = [];
   arrayOfRoutes.forEach((thePath) => {
     const readFiles = fs.readFileSync(thePath, 'utf8');
@@ -48,7 +48,7 @@ export const saveLinks = (arrayOfPaths) => {
 };
 
 export const validate = (arrObj) => {
-  const b = arrObj.map(file => fetch(file.href)
+  const fetchLink = arrObj.map(file => fetch(file.href)
     .then((res) => {
       if (res.status >= 200 && res.status <= 208) {
         return {
@@ -67,11 +67,10 @@ export const validate = (arrObj) => {
       status: 'ERROR',
       statusText: 'FAIL',
     })));
-  return Promise.all(b);
+  return Promise.all(fetchLink);
 };
 
-export const stats = arrObj => `Total: ${arrObj.length} \nUnique: ${arrObj.map(item => item.href)
-  .filter((value, index, self) => self.indexOf(value) === index).length}`;
+export const stats = arrObj => `Total: ${arrObj.length} \nUnique: ${new Set(arrObj.map(item => item.href)).size}`;
 
 export const statsValidate = (arrObj) => {
   const objStats = stats(arrObj);
@@ -94,7 +93,7 @@ export const bool = (opt1, opt2) => {
 };
 
 export const mdLinksCli = (thePath, opt1, opt2) => {
-  const options = bool;
+  const options = bool(opt1, opt2);
   return mdLinks(thePath, options)
     .then((res) => {
       let response = '';
